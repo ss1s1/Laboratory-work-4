@@ -2,16 +2,21 @@ name: JSON Linter
 
 on:
   push:
-    branches: main
+    branches:
+      - main 
+
 jobs:
   json_linter_test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: checkout
-        uses: "actions/checkout@v3"
-      - name: Start JSON Linter
-        run: |
-          npm install -g @prantlf/jsonlint
-          jsonlint DataSchema.json
-          jsonlint -q $GITHUB_WORKSPACE/DataSchema.json
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install jsonlint-cli
+        run: npm install -g jsonlint-cli
+
+      - name: Run JSON Linter
+        run: jsonlint-cli "$GITHUB_WORKSPACE/DataSchema.json"
+
 
