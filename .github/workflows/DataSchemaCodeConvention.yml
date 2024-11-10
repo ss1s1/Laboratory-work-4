@@ -1,0 +1,19 @@
+name: JSON Linter
+on:
+  # обробляє події лише для push
+  push:
+    # обробляє події лише для однієї гілки
+    branches: main
+jobs:
+  json_linter_test:
+    # використовує Docker-образ з вказаною версією ОС
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        # клонування репозиторію для подальшої роботи з файлами
+        uses: actions/checkout@v3
+      - name: Start JSON Linter
+        # виконання кількох послідовних команд через інтерпретатор командної оболонки
+        run: |
+          npm i -g @prantlf/jsonlint
+          jsonlint $GITHUB_WORKSPACE/DataSchema.json
