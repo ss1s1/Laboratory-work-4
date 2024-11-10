@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/schema#",
+  "title": "JSON Data Model of the System",
+  "type": "object",
+  "properties": {
+    "User": {
+      "description": "Користувач системи",
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "description": "Унікальний ідентифікатор користувача",
+          "type": "integer"
+        },
+        "ім'я": {
+          "description": "Ім'я користувача",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "контактні_дані": {
+          "description": "Контактна інформація користувача",
+          "type": "string",
+          "pattern": "^[^\\s]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"
+        }
+      },
+      "required": ["user_id", "ім'я", "контактні_дані"]
+    },
+    
+    "Athlete": {
+      "description": "Спортсмен_споживач",
+      "type": "object",
+      "properties": {
+        "athlete_id": {
+          "description": "Унікальний ідентифікатор спортсмена",
+          "type": "integer"
+        },
+        "user_id": {
+          "description": "Зовнішній ключ до користувача",
+          "type": "integer"
+        }
+      },
+      "required": ["athlete_id", "user_id"]
+    },
+
+    "Finances": {
+      "description": "Фінансові дані спортсмена",
+      "type": "object",
+      "properties": {
+        "finance_id": {
+          "description": "Унікальний ідентифікатор фінансових даних",
+          "type": "integer"
+        },
+        "athlete_id": {
+          "description": "Зовнішній ключ до спортсмена",
+          "type": "integer"
+        },
+        "витрати": {
+          "description": "Сумарні витрати",
+          "type": "number",
+          "minimum": 0
+        },
+        "заробіток": {
+          "description": "Сумарний заробіток",
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": ["finance_id", "athlete_id", "витрати", "заробіток"]
+    },
+
+    "PersonProfile": {
+      "description": "Анкета людини",
+      "type": "object",
+      "properties": {
+        "profile_id": {
+          "description": "Унікальний ідентифікатор анкети",
+          "type": "integer"
+        },
+        "support_id": {
+          "description": "Зовнішній ключ до підтримки стосунків",
+          "type": "integer"
+        },
+        "ім'я": {
+          "description": "Ім'я особи",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "вік": {
+          "description": "Вік особи",
+          "type": "integer",
+          "minimum": 0
+        },
+        "опис": {
+          "description": "Опис особи",
+          "type": "string"
+        },
+        "уподобання": {
+          "description": "Уподобання особи",
+          "type": "string"
+        },
+        "критерії_пошуку": {
+          "description": "Критерії для пошуку",
+          "type": "string"
+        }
+      },
+      "required": ["profile_id", "support_id", "ім'я", "вік", "опис", "уподобання", "критерії_пошуку"]
+    },
+
+    "ServicesList": {
+      "description": "Перелік послуг",
+      "type": "object",
+      "properties": {
+        "service_id": {
+          "description": "Унікальний ідентифікатор послуги",
+          "type": "integer"
+        },
+        "athlete_id": {
+          "description": "Зовнішній ключ до спортсмена",
+          "type": "integer"
+        },
+        "назва_послуги": {
+          "description": "Назва послуги",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        }
+      },
+      "required": ["service_id", "athlete_id", "назва_послуги"]
+    },
+
+    "RelationshipsSupport": {
+      "description": "Підтримка стосунків",
+      "type": "object",
+      "properties": {
+        "support_id": {
+          "description": "Унікальний ідентифікатор підтримки",
+          "type": "integer"
+        },
+        "service_id": {
+          "description": "Зовнішній ключ до послуги",
+          "type": "integer"
+        },
+        "перелік_анкет": {
+          "description": "Перелік анкет людей",
+          "type": "string"
+        }
+      },
+      "required": ["support_id", "service_id", "перелік_анкет"]
+    },
+
+    "FinancialManagement": {
+      "description": "Управління фінансами",
+      "type": "object",
+      "properties": {
+        "management_id": {
+          "description": "Унікальний ідентифікатор управління фінансами",
+          "type": "integer"
+        },
+        "service_id": {
+          "description": "Зовнішній ключ до послуги",
+          "type": "integer"
+        },
+        "finance_id": {
+          "description": "Зовнішній ключ до фінансових даних",
+          "type": "integer"
+        },
+        "аналіз_фінансів": {
+          "description": "Аналіз фінансів",
+          "type": "string"
+        }
+      },
+      "required": ["management_id", "service_id", "finance_id", "аналіз_фінансів"]
+    }
+  }
+}
