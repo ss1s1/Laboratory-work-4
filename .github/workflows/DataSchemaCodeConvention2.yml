@@ -11,6 +11,5 @@ jobs:
         uses: "actions/checkout@v3"
       - name: Start JSON Linter
         run: |
-          npm install -g @prantlf/jsonlint
-          jsonlint DataSchemaModified.json
-          jsonlint -v $GITHUB_WORKSPACE/DataSchemaModified.json
+          npm i -g @prantlf/jsonlint
+          jsonlint $GITHUB_WORKSPACE/DataSchemaModified.json
